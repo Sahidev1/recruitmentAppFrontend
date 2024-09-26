@@ -4,6 +4,7 @@ import { applicantAPImap } from "./apiMaps";
 
 async function authenticateApplicant(auth: AuthCredential):Promise<any>{
     try {
+        
         const rawAuth:string = auth.getRAWauthJSON();
         const headers:object = {"Content-Type":"application/json"};
         const reqOptions:object = {

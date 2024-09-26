@@ -4,7 +4,7 @@ class AuthCredential {
     public password: string;
     public credentialType: string;
 
-    constructor(username: string, password: string, credentialType: string = "") {
+    constructor(username: string = "", password: string = "", credentialType: string = "") {
         this.username = username;
         this.password = password;
         this.credentialType = credentialType;
