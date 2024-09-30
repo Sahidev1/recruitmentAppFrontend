@@ -2,12 +2,25 @@ import React from "react";
 import AuthCredential from "../models/AuthCredential";
 
 
+type StateTuple<T> = {
+    state: T,
+    setter: (arg:T) => void
+}
 
-interface Props {
+type primitive = string | number | boolean;
+
+type priMap<K> = {
+    [key in keyof K]:primitive
+} | {}
+
+
+
+interface Props<T> {
     message?: string;
     callback?: Function;
-    setter?: Function;
+    stateTuple?: StateTuple<T>;
     dataPayload?: object;
+    primitiveProps?:priMap<primitive>;
 }
 
 interface LoginProps {
@@ -15,11 +28,6 @@ interface LoginProps {
     //loginStateSetter(newState: Number):void
 }
 
-interface LoginFormProps {
-    actionFn: () => Promise<any>,
-    credType: string,
-    usernameRef: React.RefObject<HTMLInputElement>,
-    passwordRef: React.RefObject<HTMLInputElement>,
-}
 
-export type {Props, LoginProps, LoginFormProps};
+
+export type {Props, LoginProps, priMap, StateTuple};

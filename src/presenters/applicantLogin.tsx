@@ -1,13 +1,15 @@
 import { useRef } from "react";
 import LoginForm from "../components/loginForm";
 import credentialTypes from "../enums/credentialTypes";
-import { LoginFormProps, LoginProps} from "../interfaces/Props";
+import { LoginProps} from "../interfaces/Props";
 import AuthCredential from "../models/AuthCredential";
 import { useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
 import { setAuthStatus, setAuthUsername } from "../redux/Authslice";
 import loginStates from "../enums/loginStates";
 import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
+import { LoginFormProps } from "../components/loginForm";
 
 export default function ApplicantLogin(props:LoginProps){
     const userName = useRef<HTMLInputElement>(null);
@@ -15,7 +17,7 @@ export default function ApplicantLogin(props:LoginProps){
     const loginStatus:number = useSelector((state: RootState) => state.auth.loginStatus);
     const dispatch = useDispatch<AppDispatch>();
     
-
+    console.log("render triggered");
     
     async function actionFn():Promise<any>{
         try {
@@ -44,9 +46,9 @@ export default function ApplicantLogin(props:LoginProps){
     }
 
     return (
-        <div className="applicant_login">  
+        (loginStatus === loginStates.LOGGED_OUT && <div className="applicant_login">  
             <div className="application_login_head"> Welcome to applicant login page</div>
             <LoginForm {...propsWrap}/>
-        </div>
+        </div>) || <Navigate to="/"/>
     );
 }

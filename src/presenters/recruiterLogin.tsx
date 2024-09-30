@@ -1,8 +1,9 @@
 import { useRef } from "react";
 import LoginForm from "../components/loginForm";
 import credentialTypes from "../enums/credentialTypes";
-import { LoginFormProps, LoginProps } from "../interfaces/Props";
+import { LoginProps } from "../interfaces/Props";
 import AuthCredential from "../models/AuthCredential";
+import { LoginFormProps } from "../components/loginForm";
 
 export default function RecruiterLogin(props:LoginProps){
     const userName = useRef<HTMLInputElement>(null);

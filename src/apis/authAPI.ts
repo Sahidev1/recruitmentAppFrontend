@@ -1,4 +1,3 @@
-import { redirect } from "react-router-dom";
 import AuthCredential from "../models/AuthCredential";
 import { applicantAPImap } from "./apiMaps";
 

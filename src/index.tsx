@@ -10,6 +10,10 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
+const hostapi:string = process.env.HOST_API as string;
+
+console.log(process.env.REACT_APP_API_HOST)
+
 // Note that StrictMode causes double renders in Dev environment
 root.render(
   <React.StrictMode>

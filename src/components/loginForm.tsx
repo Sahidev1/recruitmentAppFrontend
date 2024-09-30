@@ -1,6 +1,10 @@
-import { useRef } from "react";
-import AuthCredential from "../models/AuthCredential";
-import { LoginFormProps, LoginProps} from "../interfaces/Props";
+
+export interface LoginFormProps {
+    actionFn: () => Promise<any>,
+    credType: string,
+    usernameRef: React.RefObject<HTMLInputElement>,
+    passwordRef: React.RefObject<HTMLInputElement>,
+}
 
 export default function LoginForm(props:LoginFormProps){
   

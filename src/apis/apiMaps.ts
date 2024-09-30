@@ -1,3 +1,4 @@
+import apiVars from "./apiVars";
 
 
 type Immutable<T> = {
@@ -9,7 +10,7 @@ interface APImap{
 }
 
 const applicantAPImap:Immutable<APImap> = {
-    LOGIN:"http://localhost:8000/login"
+    LOGIN:apiVars.LOGIN
 }
 
 export {applicantAPImap}
