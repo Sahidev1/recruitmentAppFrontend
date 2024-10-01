@@ -8,6 +8,6 @@ export function readEnv(envVar:string){
 
 export function concateReadEnv(vars: string[]): string {
     return vars.reduce((acc: string, curr: string) => {
-        return acc + curr;
-    }, REACT_APP_PREFIX);
+        return acc + readEnv(curr);
+    },"");
 }
