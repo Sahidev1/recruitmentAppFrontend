@@ -1,12 +1,11 @@
 import { useRef } from "react";
 import LoginForm from "../components/loginForm";
-import credentialTypes from "../enums/credentialTypes";
+import { credentialTypes, loginStates, userRole } from "../enums/enums";
 import { LoginProps} from "../interfaces/Props";
 import AuthCredential from "../models/AuthCredential";
 import { useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
-import { setAuthStatus, setAuthUsername } from "../redux/Authslice";
-import loginStates from "../enums/loginStates";
+import { setAuthStatus, setAuthUsername, setUserRole } from "../redux/Authslice";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { LoginFormProps } from "../components/loginForm";
@@ -17,17 +16,25 @@ export default function ApplicantLogin(props:LoginProps){
     const loginStatus:number = useSelector((state: RootState) => state.auth.loginStatus);
     const dispatch = useDispatch<AppDispatch>();
     
-    console.log("render triggered");
+    
+    console.log(`render triggered`);
     
     async function actionFn():Promise<any>{
         try {
             if(userName.current !== null && password.current !== null){
                 const acred = new AuthCredential(userName.current.value, password.current.value);
                 const res = await props.loginCallback(acred);
-                console.log(res.login_status);
-                if (res.login_status === "success"){
+                console.log(res);
+                
+                if (res.isValidResponse(userRole.APPLICANT)){
+                    // Since we are using react 18 we do not need to explicitly batch the dispatch calls.
+                    // Below dispatch calls will be automatically batched and only cause one potential rerender
                     dispatch(setAuthStatus(loginStates.APPLICANT_LOGGED_IN));
-                    dispatch(setAuthUsername(res.username));
+                    dispatch(setAuthUsername(res.username as string));
+                    dispatch(setUserRole(res.userRole as number));
+                }
+                else {
+                    console.log("login failed");
                 }
                 
             }

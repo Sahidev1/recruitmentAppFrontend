@@ -1,12 +1,14 @@
 import { useRef } from "react";
 import LoginForm from "../components/loginForm";
-import credentialTypes from "../enums/credentialTypes";
+import { credentialTypes, loginStates, userRole } from "../enums/enums";
 import { LoginProps } from "../interfaces/Props";
 import AuthCredential from "../models/AuthCredential";
 import { LoginFormProps } from "../components/loginForm";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
 import { useDispatch } from "react-redux";
+import { setAuthStatus, setAuthUsername, setUserRole } from "../redux/Authslice";
+import { Navigate } from "react-router-dom";
 
 export default function RecruiterLogin(props:LoginProps){
     const userName = useRef<HTMLInputElement>(null);
@@ -18,14 +20,22 @@ export default function RecruiterLogin(props:LoginProps){
         try {
             if(userName.current !== null && password.current !== null){
                 const acred = new AuthCredential(userName.current.value, password.current.value);
-                const res = props.loginCallback(acred);
+                const res = await props.loginCallback(acred);
+                if (res.isValidResponse(userRole.RECRUITER)){
+                    dispatch(setAuthStatus(loginStates.RECRUITER_LOGGED_IN));
+                    dispatch(setAuthUsername(res.username as string));
+                    dispatch(setUserRole(userRole.RECRUITER));
+                }
+                else {
+                    console.log("Login failed!");
+                }
             }
         } catch (error) {
             console.log(error);
         }
     }
 
-    const credType:string = credentialTypes.APPLICANT;
+    const credType:string = credentialTypes.RECRUITER
 
     const propsWrap:LoginFormProps = {
         actionFn:actionFn,
@@ -35,9 +45,9 @@ export default function RecruiterLogin(props:LoginProps){
     }
 
     return (
-        <div>
-            <div className="recruiter_login_header"> Welcome to recruitment login portal</div>
+        (loginStatus === loginStates.LOGGED_OUT && <div className="recruiter_login">  
+            <div className="recruiter_login_header "> Welcome to applicant login page</div>
             <LoginForm {...propsWrap}/>
-        </div>
+        </div>) || <Navigate to="/"/>
     );
 }

@@ -1,16 +1,18 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import loginStates from "../enums/loginStates";
+import { loginStates, userRole } from "../enums/enums";
 
 
 
 interface Authstate {
     loginStatus: number;
     username: string;
+    userRole: userRole;
 };
 
 const initialState: Authstate = {
     loginStatus: loginStates.LOGGED_OUT,
-    username: ""
+    username: "",
+    userRole: userRole.UNKNOWN
 };
 
 const authSlice = createSlice({
@@ -22,9 +24,12 @@ const authSlice = createSlice({
         },
         setAuthUsername(state, action: PayloadAction<string>){
             state.username = action.payload;
+        },
+        setUserRole(state, action: PayloadAction<userRole>){
+            state.userRole = action.payload;
         }
     }
 });
 
-export const { setAuthStatus, setAuthUsername} = authSlice.actions;
+export const { setAuthStatus, setAuthUsername, setUserRole} = authSlice.actions;
 export default authSlice.reducer;

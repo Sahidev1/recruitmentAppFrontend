@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { Props, StateTuple, priMap } from "../interfaces/Props";
 import { Navigate } from "react-router-dom";
-import loginStates from "../enums/loginStates";
+import { loginStates } from "../enums/enums";
 
 
 export interface loggedOutPortalProps{

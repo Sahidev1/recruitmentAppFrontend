@@ -2,7 +2,7 @@ import { Navigate } from "react-router-dom";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import loginStates from "../enums/loginStates";
+import { loginStates } from "../enums/enums";
 import {loggedOutPortalProps} from "../components/loggedOutPortal";
 import LoggedOutPortal from "../components/loggedOutPortal";
 import { Props, priMap } from "../interfaces/Props";

@@ -1,7 +1,8 @@
 import AuthCredential from "../models/AuthCredential";
+import { AuthResponse } from "../models/AuthResponse";
 import { applicantAPImap } from "./apiMaps";
 
-async function authenticateApplicant(auth: AuthCredential):Promise<any>{
+async function authenticateApplicant(auth: AuthCredential):Promise<AuthResponse>{
     try {
         
         const rawAuth:string = auth.getRAWauthJSON();
@@ -14,8 +15,8 @@ async function authenticateApplicant(auth: AuthCredential):Promise<any>{
         };
 
         const resp = await fetch(applicantAPImap.LOGIN, reqOptions);
-        console.log(resp);
-        return await resp.json();
+        const jsonResp = await resp.json();
+        return new AuthResponse(jsonResp);
     } catch (error) {
         throw error;
     }

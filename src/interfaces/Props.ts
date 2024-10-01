@@ -1,5 +1,6 @@
 import React from "react";
 import AuthCredential from "../models/AuthCredential";
+import { AuthResponse } from "../models/AuthResponse";
 
 
 type StateTuple<T> = {
@@ -24,7 +25,7 @@ interface Props<T> {
 }
 
 interface LoginProps {
-    loginCallback(auth:AuthCredential):Promise<any>,
+    loginCallback(auth:AuthCredential):Promise<AuthResponse>,
     //loginStateSetter(newState: Number):void
 }
 
