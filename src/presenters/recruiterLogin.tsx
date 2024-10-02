@@ -46,7 +46,7 @@ export default function RecruiterLogin(props:LoginProps){
 
     return (
         (loginStatus === loginStates.LOGGED_OUT && <div className="recruiter_login">  
-            <div className="recruiter_login_header "> Welcome to applicant login page</div>
+            <div className="recruiter_login_header "> Welcome to recruiter login page</div>
             <LoginForm {...propsWrap}/>
         </div>) || <Navigate to="/"/>
     );

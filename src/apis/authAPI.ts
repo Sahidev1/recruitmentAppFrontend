@@ -16,6 +16,7 @@ async function authenticateApplicant(auth: AuthCredential):Promise<AuthResponse>
 
         const resp = await fetch(applicantAPImap.LOGIN, reqOptions);
         const jsonResp = await resp.json();
+        console.log(jsonResp)
         return new AuthResponse(jsonResp);
     } catch (error) {
         throw error;

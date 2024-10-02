@@ -11,7 +11,7 @@ export class AuthResponse {
         this.loginStatus = authResJSON["login_status"];
         this.username = authResJSON["username"];
         this.name = authResJSON["name"];
-        this.userRole = authResJSON["role"] as userRole;
+        this.userRole = authResJSON["role_id"] as userRole;
     }
 
     public isValidResponse(expected:userRole):boolean{
