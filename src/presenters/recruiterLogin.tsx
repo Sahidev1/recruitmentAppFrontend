@@ -21,7 +21,7 @@ export default function RecruiterLogin(props:LoginProps){
             if(userName.current !== null && password.current !== null){
                 const acred = new AuthCredential(userName.current.value, password.current.value);
                 const res = await props.loginCallback(acred);
-                if (res.isValidResponse(userRole.RECRUITER)){
+                if (res.isValidLoginResponse(userRole.RECRUITER)){
                     dispatch(setAuthStatus(loginStates.RECRUITER_LOGGED_IN));
                     dispatch(setAuthUsername(res.username as string));
                     dispatch(setUserRole(userRole.RECRUITER));

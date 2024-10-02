@@ -1,23 +1,26 @@
-import { userRole } from "../enums/enums";
+import { authStatus, userRole } from "../enums/enums";
+import typeOfTypes from "../enums/typeOfTypes";
 
 
 export class AuthResponse {
     loginStatus:string | undefined;
     username:string | undefined;
     name:string | undefined;
-    userRole: number | undefined;
+    userRole: userRole | undefined;
+    authStatus: authStatus | undefined;
 
     constructor(authResJSON:any){
         this.loginStatus = authResJSON["login_status"];
         this.username = authResJSON["username"];
         this.name = authResJSON["name"];
-        this.userRole = authResJSON["role_id"] as userRole;
+        this.userRole = authResJSON["role_id"];
+        this.authStatus = authResJSON["auth_status"];
     }
 
-    public isValidResponse(expected:userRole):boolean{
-        return (typeof this.loginStatus === 'string' &&
-            typeof this.username === 'string' &&
-            typeof this.userRole === 'number' &&
+    public isValidLoginResponse(expected:userRole):boolean{
+        return (typeof this.loginStatus === typeOfTypes.STRING &&
+            typeof this.username === typeOfTypes.STRING &&
+            typeof this.userRole === typeOfTypes.NUMBER &&
             this.userRole === expected
         );
     }

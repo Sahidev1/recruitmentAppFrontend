@@ -2,19 +2,22 @@ import AuthCredential from "../models/AuthCredential";
 import { AuthResponse } from "../models/AuthResponse";
 import { applicantAPImap } from "./apiMaps";
 
+const headers:HeadersInit = {"Content-Type":"application/json"};
+
 async function authenticateApplicant(auth: AuthCredential):Promise<AuthResponse>{
     try {
         
         const rawAuth:string = auth.getRAWauthJSON();
-        const headers:object = {"Content-Type":"application/json"};
-        const reqOptions:object = {
+        const reqOptions:RequestInit = {
             method: "POST",
             headers: headers,
             body: rawAuth,
-            redirect: "follow"
+            redirect: "follow",
+            credentials: "include"
         };
 
-        const resp = await fetch(applicantAPImap.LOGIN, reqOptions);
+        const resp:Response = await fetch(applicantAPImap.LOGIN, reqOptions);
+     
         const jsonResp = await resp.json();
         console.log(jsonResp)
         return new AuthResponse(jsonResp);
@@ -23,4 +26,21 @@ async function authenticateApplicant(auth: AuthCredential):Promise<AuthResponse>
     }
 }
 
-export {authenticateApplicant};
+async function checkAuthenticationState():Promise<AuthResponse>{
+    try {
+        const reqOptions:RequestInit = {
+            method: "GET",
+            headers: headers,
+            redirect:"follow",
+            credentials:"include"
+        };
+
+        const resp:Response = await fetch(applicantAPImap.CHECK_AUTH, reqOptions);
+        const jsonResp = await resp.json();
+        return new AuthResponse(jsonResp);
+    } catch (error) {
+        throw error;
+    }
+}
+
+export {authenticateApplicant, checkAuthenticationState};

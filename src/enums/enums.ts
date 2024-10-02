@@ -17,4 +17,9 @@ enum userRole {
     APPLICANT
 }
 
-export  {credentialTypes, loginStates, userRole};
+enum authStatus {
+    UNAUTHORIZED ="Unauthorized",
+    AUTHORIZED = "Authorized"
+}
+
+export  {credentialTypes, loginStates, userRole, authStatus};

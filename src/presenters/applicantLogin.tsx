@@ -26,7 +26,7 @@ export default function ApplicantLogin(props:LoginProps){
                 const res = await props.loginCallback(acred);
                 console.log(res);
                 
-                if (res.isValidResponse(userRole.APPLICANT)){
+                if (res.isValidLoginResponse(userRole.APPLICANT)){
                     // Since we are using react 18 we do not need to explicitly batch the dispatch calls.
                     // Below dispatch calls will be automatically batched and only cause one potential rerender
                     dispatch(setAuthStatus(loginStates.APPLICANT_LOGGED_IN));
