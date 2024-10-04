@@ -12,8 +12,8 @@ export default function StartPortal (){
     const loginStatus:number = useSelector((state: RootState) => state.auth.loginStatus);
     const user:string = useSelector((state:RootState) => state.auth.username);
     const [portal, setPortal] = useState<string>("main");
-    console.log(`render`);
-    console.log(loginStatus);
+    //console.log(`render`);
+    //console.log(loginStatus);
     
     const props:loggedOutPortalProps= {
         stateTuple: {
