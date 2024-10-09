@@ -28,6 +28,6 @@ export default function StartPortal (){
     
     
 
-    return ((portal === "applicant" && <Navigate to="applicant_portal" replace={false}/>) || (portal === "recruiter" && <Navigate to="recruiter_portal" replace={false} />)
-    ||<LoggedOutPortal {...props}/>)
+    return ((portal === "applicant" && <Navigate to="/applicant_portal" replace={false}/>) || (portal === "recruiter" && <Navigate to="recruiter_portal" replace={false} />)
+    ||<LoggedOutPortal />)
 }

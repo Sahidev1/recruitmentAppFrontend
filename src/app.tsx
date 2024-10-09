@@ -11,6 +11,8 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "./redux/store";
 import { setAuthStatus, setAuthUsername, setUserRole } from "./redux/Authslice";
 import Loading from "./components/loading";
+import TopBar from "./presenters/topBar";
+import { Paths } from "./enums/navigations";
 
 
 const login: LoginProps = {
@@ -20,16 +22,22 @@ const login: LoginProps = {
 
 const router = createBrowserRouter([
     {
-        path: "/",
-        element: <StartPortal />,
-    },
-    {
-        path: "/applicant_portal",
-        element: <ApplicantLogin {...login} />
-    },
-    {
-        path: "/recruiter_portal",
-        element: <RecruiterLogin {...login} />
+        path: Paths.ROOT,
+        element: <TopBar/>,
+        children:[
+            {
+                path: Paths.ROOT,
+                element: <StartPortal />,
+            },
+            {
+                path: Paths.APPLICANT_PORTAL,
+                element: <ApplicantLogin {...login} />
+            },
+            {
+                path: Paths.RECRUITER_PORTAL,
+                element: <RecruiterLogin {...login} />
+            }
+        ]
     }
 ]);
 

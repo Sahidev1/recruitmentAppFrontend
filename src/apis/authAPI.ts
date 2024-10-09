@@ -43,4 +43,19 @@ async function checkAuthenticationState():Promise<AuthResponse>{
     }
 }
 
+async function logOut(){
+    try {
+        const reqOpions:RequestInit = {
+            method: "GET",
+            headers: headers,
+            redirect:"follow",
+            credentials:"include"
+        }
+    } catch (error) {
+        throw error;
+    }
+}
+
+
+
 export {authenticateApplicant, checkAuthenticationState};

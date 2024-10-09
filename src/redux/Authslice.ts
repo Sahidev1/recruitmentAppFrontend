@@ -3,7 +3,7 @@ import { loginStates, userRole } from "../enums/enums";
 
 
 
-interface Authstate {
+export interface Authstate {
     loginStatus: number;
     username: string;
     userRole: userRole;
