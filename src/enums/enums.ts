@@ -22,4 +22,11 @@ enum authStatus {
     AUTHORIZED = "Authorized"
 }
 
-export  {credentialTypes, loginStates, userRole, authStatus};
+enum fetchStatus {
+    SUCCESS,
+    FAIL,
+    ERROR,
+    UNDEFINED
+}
+
+export  {credentialTypes, loginStates, userRole, authStatus, fetchStatus};

@@ -9,6 +9,7 @@ import { AppDispatch, RootState } from "../redux/store";
 import { useDispatch } from "react-redux";
 import { setAuthStatus, setAuthUsername, setUserRole } from "../redux/Authslice";
 import { Navigate } from "react-router-dom";
+import { logOut } from "../apis/authAPI";
 
 export default function RecruiterLogin(props:LoginProps){
     const userName = useRef<HTMLInputElement>(null);
@@ -28,6 +29,7 @@ export default function RecruiterLogin(props:LoginProps){
                 }
                 else {
                     console.log("Login failed!");
+                    await logOut();
                 }
             }
         } catch (error) {

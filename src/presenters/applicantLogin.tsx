@@ -9,6 +9,7 @@ import { setAuthStatus, setAuthUsername, setUserRole } from "../redux/Authslice"
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { LoginFormProps } from "../components/loginForm";
+import { logOut } from "../apis/authAPI";
 
 export default function ApplicantLogin(props:LoginProps){
     const userName = useRef<HTMLInputElement>(null);
@@ -35,6 +36,7 @@ export default function ApplicantLogin(props:LoginProps){
                 }
                 else {
                     console.log("login failed");
+                    await logOut();
                 }
                 
             }

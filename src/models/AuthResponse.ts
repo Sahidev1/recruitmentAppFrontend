@@ -20,7 +20,6 @@ export class AuthResponse {
     public isValidLoginResponse(expected:userRole):boolean{
         return (typeof this.loginStatus === typeOfTypes.STRING &&
             typeof this.username === typeOfTypes.STRING &&
-            typeof this.userRole === typeOfTypes.NUMBER &&
             this.userRole === expected
         );
     }

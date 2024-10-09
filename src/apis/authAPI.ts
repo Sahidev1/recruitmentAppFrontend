@@ -1,3 +1,4 @@
+import { fetchStatus } from "../enums/enums";
 import AuthCredential from "../models/AuthCredential";
 import { AuthResponse } from "../models/AuthResponse";
 import { applicantAPImap } from "./apiMaps";
@@ -43,7 +44,7 @@ async function checkAuthenticationState():Promise<AuthResponse>{
     }
 }
 
-async function logOut(){
+async function logOut():Promise<fetchStatus>{
     try {
         const reqOpions:RequestInit = {
             method: "GET",
@@ -51,6 +52,10 @@ async function logOut(){
             redirect:"follow",
             credentials:"include"
         }
+        const resp:Response = await fetch(applicantAPImap.LOGOUT, reqOpions);
+        if (resp.ok) return fetchStatus.SUCCESS;
+        return fetchStatus.FAIL;
+
     } catch (error) {
         throw error;
     }
@@ -58,4 +63,4 @@ async function logOut(){
 
 
 
-export {authenticateApplicant, checkAuthenticationState};
+export {authenticateApplicant, checkAuthenticationState, logOut};

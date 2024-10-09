@@ -8,7 +8,6 @@ export interface navigationComponentProps{
 export default function NavigationComponent(props:navigationComponentProps){
 
     return <div>
-        location:
         {props.callbacks.map((v,i) => {
             return <button key={i} onClick={v.cb}> {v.descriptor}</button>
         })
