@@ -13,58 +13,61 @@ import { useDispatch } from "react-redux";
 import ActionComponent, { actionComponentProps } from "../components/actionComponent";
 
 
-export default function TopBar(){
+export default function TopBar() {
     console.log("topbar render")
-    const loginstat:loginStates = useSelector((state: RootState) => state.auth.loginStatus);
-    const username:string = useSelector((state: RootState)=> state.auth.username);
-    const role:userRole = useSelector((state: RootState)=> state.auth.userRole);
-    const status:Authstate = {
-        loginStatus:loginstat,
-        username:username,
-        userRole:role
+    const loginstat: loginStates = useSelector((state: RootState) => state.auth.loginStatus);
+    const username: string = useSelector((state: RootState) => state.auth.username);
+    const role: userRole = useSelector((state: RootState) => state.auth.userRole);
+    const status: Authstate = {
+        loginStatus: loginstat,
+        username: username,
+        userRole: role
     }
 
     const dispatch = useDispatch<AppDispatch>();
-    
-    const props:statusComponentProps = {
-        loginStatus:status.loginStatus,
-        username:status.username,
+
+    const props: statusComponentProps = {
+        loginStatus: status.loginStatus,
+        username: status.username,
         userRole: status.userRole
     }
-    const location = document.location;
+    const location = useLocation();
     const [nav, setNav] = useState<string>(location.pathname);
-    const prev = useRef<string>(location.pathname)
+    const prev = useRef<string>(location.pathname);
 
-    const posPaths:string[] = [Paths.ROOT, Paths.APPLICANT_PORTAL, Paths.RECRUITER_PORTAL];
-    const descriptorMap: { [key: string]: string } = {[Paths.ROOT]:"Main portal", [Paths.APPLICANT_PORTAL]:"Application Portal",
-        [Paths.RECRUITER_PORTAL]:"Recruitment Portal"
+    const posPaths: string[] = [Paths.ROOT, Paths.APPLICANT_PORTAL, Paths.RECRUITER_PORTAL];
+    const descriptorMap: { [key: string]: string } = {
+        [Paths.ROOT]: "Main portal", [Paths.APPLICANT_PORTAL]: "Application Portal",
+        [Paths.RECRUITER_PORTAL]: "Recruitment Portal"
     }
 
-    let availableNavs:string[];
-    if (status.loginStatus === loginStates.LOGGED_OUT){
-        availableNavs= posPaths.filter((v:string)=>v !== nav);
+    let availableNavs: string[];
+    if (status.loginStatus === loginStates.LOGGED_OUT) {
+        availableNavs = posPaths.filter((v: string) => v !== nav);
     } else {
-        availableNavs=[]
+        availableNavs = []
     }
 
-    const navCallbacks:({descriptor:string,cb:() => void})[] = availableNavs.map(
+    const navCallbacks: ({ descriptor: string, cb: () => void })[] = availableNavs.map(
         e => {
-            return {descriptor:descriptorMap[e], cb: ()=>{
-                prev.current = nav;
-                setNav(e);
-            }}
+            return {
+                descriptor: descriptorMap[e], cb: () => {
+                    prev.current = nav;
+                    setNav(e);
+                }
+            }
         }
     )
 
-    const navProps:navigationComponentProps = {
-        callbacks:navCallbacks
+    const navProps: navigationComponentProps = {
+        callbacks: navCallbacks
     }
 
-    
-    async function logOutCB():Promise<void>{
+
+    async function logOutCB(): Promise<void> {
         try {
-            const res:fetchStatus = await logOut();
-            if (res === fetchStatus.SUCCESS){
+            const res: fetchStatus = await logOut();
+            if (res === fetchStatus.SUCCESS) {
                 dispatch(setAuthStatus(loginStates.LOGGED_OUT));
                 dispatch(setAuthUsername(""));
                 dispatch(setUserRole(userRole.UNKNOWN));
@@ -77,25 +80,29 @@ export default function TopBar(){
         }
     }
 
-    const actionProps:actionComponentProps = {
-        buttons:[]
+    const actionProps: actionComponentProps = {
+        buttons: []
     }
 
-    if(status.loginStatus === loginStates.APPLICANT_LOGGED_IN || status.loginStatus === loginStates.RECRUITER_LOGGED_IN){
-        actionProps.buttons = [...actionProps.buttons, {description:'logout',callback:logOutCB}]
+    if (status.loginStatus === loginStates.APPLICANT_LOGGED_IN || status.loginStatus === loginStates.RECRUITER_LOGGED_IN) {
+        actionProps.buttons = [...actionProps.buttons, { description: 'logout', callback: logOutCB }]
     }
     console.log(`prev: ${prev.current}, nav: ${nav}`)
     return (
-        <div>
-            {nav !== prev.current?<Navigate to={nav} replace={false}/>:null}
+        <>
+            {nav !== prev.current ? <Navigate to={nav} replace={false} /> : null}
             <>
-                    <StatusComponent {...props} />
-                    <NavigationComponent {...navProps} />
-                    <ActionComponent {...actionProps}/>
-                    <Outlet/>
+                <div>
+                    <span ><StatusComponent {...props} /></span>
+                    <span ><NavigationComponent {...navProps} /></span>
+                    <span ><ActionComponent {...actionProps} /></span>
+                </div>
+                <div>
+                    <Outlet />
+                </div>
             </>
 
-            
-        </div>
+
+        </>
     );
-}
+}                       
