@@ -33,7 +33,46 @@ code {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
+.topbar {
+  height: 6vh; /* 10% of the viewport height */
+  width: 100vw; /* 100% of the viewport width */
+  min-height: 3em; /* Minimum height of 4em */
+  display: flex;
+  background-color: #a3ccf5; /* Light background color */
+  box-shadow: 0 4px 10px rgba(255, 0, 0, 0.5); /* Subtle shadow for depth */
+}
 
+.topbar span {
+  margin-top: 5px; /* Space between the top of the element and the top of the topbar */
+  margin-bottom: 5px; /* Space between the bottom of the element and the bottom of the topbar */
+  display:flex;
+  align-items: center; /* Center items vertically */
+  justify-content: center; /* Center items horizontally */
+  color: #495057; /* Dark text color */
+}
+
+.topbar span.status {
+  margin-left: 10px; /* Space between the icon and text */
+  min-width: 20vw; /* 1/3 of the available space */
+  height: 100%; /* Full height */
+  justify-content: left;
+}
+
+.topbar span.nav {
+  margin-left: 10px; /* Push the element to the right */
+  margin-right: 10px; /* Space between the icon and text */
+  min-width: 50vw; /* 1/3 of the available space */
+  height: 100%; /* Full height */
+}
+
+.topbar span.action {
+  margin-right: 10px; /* Space between the icon and text */
+  margin-left: auto; /* Push the element to the right */
+  min-width: 30vw; /* 1/3 of the available space */
+  height: 100%; /* Full height */
+}
+
+/* I want topbar inhertiences to topbar 1, 2, 3 how*/
 
 
 #loginForm {

@@ -11,7 +11,7 @@ export default function StatusComponent(props:statusComponentProps){
     
 
     return <>
-        {(props.loginStatus === loginStates.LOGGED_OUT && <>User logged out</>)||
+        {(props.loginStatus === loginStates.LOGGED_OUT && <>You are logged out</>)||
         <>Welcome {props.userRole === userRole.APPLICANT?'applicant':'recruiter'} {props.username} </>}
     </>
 } 

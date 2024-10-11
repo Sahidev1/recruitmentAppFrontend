@@ -92,10 +92,10 @@ export default function TopBar() {
         <>
             {nav !== prev.current ? <Navigate to={nav} replace={false} /> : null}
             <>
-                <div>
-                    <span ><StatusComponent {...props} /></span>
-                    <span ><NavigationComponent {...navProps} /></span>
-                    <span ><ActionComponent {...actionProps} /></span>
+                <div className="topbar">
+                    <span className="status"><StatusComponent {...props} /></span>
+                    <span className="nav"><NavigationComponent {...navProps} /></span>
+                    <span className="action"><ActionComponent {...actionProps} /></span>
                 </div>
                 <div>
                     <Outlet />
