@@ -35,8 +35,8 @@ export default function ApplicantLogin(props:LoginProps){
                     dispatch(setUserRole(res.userRole as number));
                 }
                 else {
-                    console.log("login failed");
-                    await logOut();
+                    console.log(`login failed with code: ${res.respCode || 'unspecified'}`);
+                    if(res.respCode === 200)await logOut(); // this handles wrong role login
                 }
                 
             }

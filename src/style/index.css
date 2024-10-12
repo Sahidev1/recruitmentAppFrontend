@@ -65,6 +65,20 @@ code {
   height: 100%; /* Full height */
 }
 
+button {
+  display: inline-block;
+  margin-left: 10px; /* Push the element to the right */
+  margin-right: 10px; /* Space between the icon and text */
+  height: 50%; /* Full height */
+  background-color: #f8f9fa; /* Light background color */
+  border: none; /* Remove border */
+  color: #495057; /* Dark text color */
+  cursor: pointer; /* Show pointer on hover */
+  padding: 5px; /* Spacing inside the button */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
 .topbar span.action {
   margin-right: 10px; /* Space between the icon and text */
   margin-left: auto; /* Push the element to the right */

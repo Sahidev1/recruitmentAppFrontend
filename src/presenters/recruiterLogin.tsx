@@ -28,8 +28,8 @@ export default function RecruiterLogin(props:LoginProps){
                     dispatch(setUserRole(userRole.RECRUITER));
                 }
                 else {
-                    console.log("Login failed!");
-                    await logOut();
+                    console.log(`login failed with code: ${res.respCode || 'unspecified'}`);
+                    if(res.respCode === 200)await logOut(); // this handles wrong role login
                 }
             }
         } catch (error) {

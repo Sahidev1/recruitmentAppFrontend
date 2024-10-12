@@ -21,7 +21,7 @@ async function authenticateApplicant(auth: AuthCredential):Promise<AuthResponse>
      
         const jsonResp = await resp.json();
         console.log(jsonResp)
-        return new AuthResponse(jsonResp);
+        return new AuthResponse(jsonResp,resp.status);
     } catch (error) {
         throw error;
     }
@@ -38,7 +38,7 @@ async function checkAuthenticationState():Promise<AuthResponse>{
 
         const resp:Response = await fetch(applicantAPImap.CHECK_AUTH, reqOptions);
         const jsonResp = await resp.json();
-        return new AuthResponse(jsonResp);
+        return new AuthResponse(jsonResp, resp.status);
     } catch (error) {
         throw error;
     }
