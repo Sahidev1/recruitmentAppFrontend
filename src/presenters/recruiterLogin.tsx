@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import LoginForm from "../components/loginForm";
 import { credentialTypes, loginStates, userRole } from "../enums/enums";
 import { LoginProps } from "../interfaces/Props";
@@ -16,6 +16,8 @@ export default function RecruiterLogin(props:LoginProps){
     const password = useRef<HTMLInputElement>(null);
     const loginStatus:number = useSelector((state: RootState) => state.auth.loginStatus);
     const dispatch = useDispatch<AppDispatch>();
+
+    const [failedLoginAttempt, setFLA] = useState<boolean>(false);
     
     async function actionFn():Promise<any>{
         try {
@@ -29,7 +31,10 @@ export default function RecruiterLogin(props:LoginProps){
                 }
                 else {
                     console.log(`login failed with code: ${res.respCode || 'unspecified'}`);
-                    if(res.respCode === 200)await logOut(); // this handles wrong role login
+                    if(res.respCode === 200){
+                        await logOut();
+                    } // this handles wrong role login
+                    setFLA(true);
                 }
             }
         } catch (error) {
@@ -43,7 +48,8 @@ export default function RecruiterLogin(props:LoginProps){
         actionFn:actionFn,
         credType: credType,
         usernameRef: userName,
-        passwordRef: password
+        passwordRef: password,
+        lastAttemptFailed: failedLoginAttempt
     }
 
     return (

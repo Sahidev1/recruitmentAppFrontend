@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import LoginForm from "../components/loginForm";
 import { credentialTypes, loginStates, userRole } from "../enums/enums";
 import { LoginProps} from "../interfaces/Props";
@@ -17,7 +17,8 @@ export default function ApplicantLogin(props:LoginProps){
     const loginStatus:number = useSelector((state: RootState) => state.auth.loginStatus);
     const dispatch = useDispatch<AppDispatch>();
     
-    
+    const [failedLoginAttempt, setFLA] = useState<boolean>(false);
+
     console.log(`render triggered`);
     
     async function actionFn():Promise<any>{
@@ -37,6 +38,7 @@ export default function ApplicantLogin(props:LoginProps){
                 else {
                     console.log(`login failed with code: ${res.respCode || 'unspecified'}`);
                     if(res.respCode === 200)await logOut(); // this handles wrong role login
+                    setFLA(true);
                 }
                 
             }
@@ -51,7 +53,8 @@ export default function ApplicantLogin(props:LoginProps){
         actionFn:actionFn,
         credType: credType,
         usernameRef: userName,
-        passwordRef: password
+        passwordRef: password,
+        lastAttemptFailed: failedLoginAttempt
     }
 
     return (
