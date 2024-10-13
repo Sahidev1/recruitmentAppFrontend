@@ -15,10 +15,7 @@ import TopBar from "./presenters/topBar";
 import { Paths } from "./enums/navigations";
 
 
-const login: LoginProps = {
-    loginCallback: authenticateApplicant,
-    //loginStateSetter: setLoginState
-}
+
 
 
 
@@ -33,11 +30,11 @@ const router = createBrowserRouter([
             },
             {
                 path: Paths.APPLICANT_PORTAL,
-                element: <ApplicantLogin {...login} />
+                element: <ApplicantLogin  />
             },
             {
                 path: Paths.RECRUITER_PORTAL,
-                element: <RecruiterLogin {...login} />
+                element: <RecruiterLogin  />
             }
         ]
     }

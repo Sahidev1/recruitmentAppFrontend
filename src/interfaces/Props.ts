@@ -1,6 +1,8 @@
 import React from "react";
 import AuthCredential from "../models/AuthCredential";
 import { AuthResponse } from "../models/AuthResponse";
+import { credentialTypes, userRole } from "../enums/enums";
+import { PayloadAction } from "@reduxjs/toolkit";
 
 
 type StateTuple<T> = {
@@ -24,8 +26,14 @@ interface Props<T> {
     primitiveProps?:priMap<primitive>;
 }
 
+
+
 interface LoginProps {
     loginCallback(auth:AuthCredential):Promise<AuthResponse>,
+    userRoleCheck:userRole,
+    authStatusVal:number
+    welcomeMessage:string,
+    credType:credentialTypes
     //loginStateSetter(newState: Number):void
 }
 
