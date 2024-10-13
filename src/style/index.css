@@ -107,3 +107,13 @@ button {
   padding: 10px; /* Spacing inside the box */
   border-radius: 5px; /* Rounded corners */
 }
+
+.loginForm span.error_box {
+  margin-top: 10px; /* Space between the top of the element and the top of the form */
+  margin-bottom: 10px; /* Space between the bottom of the element and the bottom of the form */
+  border: 2px solid #dc3545; /* Red border */
+  background-color: #f8d7da; /* Light red background color */
+  color: #721c24; /* Dark red text color */
+  padding: 10px; /* Spacing inside the box */
+  border-radius: 5px; /* Rounded corners */
+}
