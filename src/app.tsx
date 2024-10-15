@@ -1,6 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { authenticateApplicant, checkAuthenticationState } from "./apis/authAPI";
-import { LoginProps } from "./interfaces/Props";
 import StartPortal from "./presenters/startPortal";
 import ApplicantLogin from "./presenters/applicantLogin";
 import RecruiterLogin from "./presenters/recruiterLogin";
@@ -13,6 +12,7 @@ import { setAuthStatus, setAuthUsername, setUserRole } from "./redux/Authslice";
 import Loading from "./components/loading";
 import TopBar from "./presenters/topBar";
 import { Paths } from "./enums/navigations";
+import Registration from "./presenters/registration";
 
 
 
@@ -35,6 +35,10 @@ const router = createBrowserRouter([
             {
                 path: Paths.RECRUITER_PORTAL,
                 element: <RecruiterLogin  />
+            },
+            {
+                path: Paths.REGISTRATION,
+                element: <Registration/>
             }
         ]
     }
