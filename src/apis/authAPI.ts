@@ -1,6 +1,8 @@
 import { fetchStatus } from "../enums/enums";
 import AuthCredential from "../models/AuthCredential";
 import { AuthResponse } from "../models/AuthResponse";
+import RegFormData from "../models/RegFormData";
+import RegResponse from "../models/RegResponse";
 import { applicantAPImap } from "./apiMaps";
 
 const headers:HeadersInit = {"Content-Type":"application/json"};
@@ -22,6 +24,25 @@ async function authenticateApplicant(auth: AuthCredential):Promise<AuthResponse>
         const jsonResp = await resp.json();
         console.log(jsonResp)
         return new AuthResponse(jsonResp,resp.status);
+    } catch (error) {
+        throw error;
+    }
+}
+
+async function registerApplicant(data:RegFormData):Promise<RegResponse>{
+    try {
+        const rawData:string = data.getRawJSON();
+        const reqOptions:RequestInit = {
+            method:"POST",
+            headers: headers,
+            body: rawData,
+            redirect: "follow",
+            credentials: "include"
+        }
+        
+        const resp:Response = await fetch(applicantAPImap.REGISTER, reqOptions);
+        const jsonResp = await resp.json();
+        return new RegResponse(jsonResp, resp.status);
     } catch (error) {
         throw error;
     }
@@ -63,4 +84,4 @@ async function logOut():Promise<fetchStatus>{
 
 
 
-export {authenticateApplicant, checkAuthenticationState, logOut};
+export {authenticateApplicant, checkAuthenticationState, logOut, registerApplicant};

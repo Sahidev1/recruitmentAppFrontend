@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import { checkAuthenticationState } from './apis/authAPI';
 import App from './app';
+import { applicantAPImap } from './apis/apiMaps';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -22,4 +23,4 @@ root.render(
 );
 
 //heckAuthenticationState().then(e => console.log(e)).catch(err => console.log(err))
-
+console.log(applicantAPImap.REGISTER)

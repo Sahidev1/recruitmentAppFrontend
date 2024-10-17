@@ -14,7 +14,7 @@
 
 export interface registrationComponentProps {
     inputs: [{type:string, description:string, reference: React.RefObject<HTMLInputElement>}]
-    onSubmit?: (event:any) => any
+    onSubmit?: (event:React.FormEvent<HTMLFormElement>) => void
 }
 
 
