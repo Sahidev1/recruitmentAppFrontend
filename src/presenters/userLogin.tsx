@@ -56,7 +56,8 @@ export default function UserLogin(props:LoginProps){
         usernameRef:userName,
         passwordRef:password,
         lastAttemptFailed:failedLoginAttempt,
-        error:err
+        error:err,
+        additionalButtons: props.additionalButtons
     }
 
     return (

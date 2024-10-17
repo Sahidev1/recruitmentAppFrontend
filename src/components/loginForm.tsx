@@ -5,7 +5,8 @@ export interface LoginFormProps {
     usernameRef: React.RefObject<HTMLInputElement>,
     passwordRef: React.RefObject<HTMLInputElement>,
     lastAttemptFailed: boolean,
-    error:boolean
+    error:boolean,
+    additionalButtons?:{descriptor:string, onClick:(e:any)=>void}[]
 }
 
 export default function LoginForm(props:LoginFormProps){
@@ -20,6 +21,9 @@ export default function LoginForm(props:LoginFormProps){
             password
             <input ref={props.passwordRef} type="password" className="password"  name="password"></input><br/>
             <button onClick={props.actionFn}>Login</button>
+            {props.additionalButtons?.map((e,i)=>{
+                return <button key={`${e}${i}`} onClick={e.onClick}>{e.descriptor}</button>
+            })}
         </div>
     );
 }

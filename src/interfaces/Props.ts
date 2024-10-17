@@ -33,7 +33,8 @@ interface LoginProps {
     userRoleCheck:userRole,
     authStatusVal:number
     welcomeMessage:string,
-    credType:credentialTypes
+    credType:credentialTypes,
+    additionalButtons?:{descriptor:string, onClick:(e:any)=>void}[]
     //loginStateSetter(newState: Number):void
 }
 
