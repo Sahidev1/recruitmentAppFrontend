@@ -42,6 +42,7 @@ async function registerApplicant(data:RegFormData):Promise<RegResponse>{
         
         const resp:Response = await fetch(applicantAPImap.REGISTER, reqOptions);
         const jsonResp = await resp.json();
+        console.log(jsonResp)//remeber to remove
         return new RegResponse(jsonResp, resp.status);
     } catch (error) {
         throw error;

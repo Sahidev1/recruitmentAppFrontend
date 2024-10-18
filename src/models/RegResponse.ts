@@ -7,7 +7,7 @@ export default class RegResponse {
 
     constructor(jsonPayload:any, respCode:number|undefined = undefined){
         this.respCode = respCode;
-        this.regStatus = jsonPayload['register_status'];
+        this.regStatus = jsonPayload['register_status'] === 'fail'?false:true;
         this.username = jsonPayload['user'];
         this.causes = jsonPayload['causes'];
     }
