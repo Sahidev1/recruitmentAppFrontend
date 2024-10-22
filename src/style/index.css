@@ -117,3 +117,21 @@ button {
   padding: 10px; /* Spacing inside the box */
   border-radius: 5px; /* Rounded corners */
 }
+
+.reg_form {
+  margin: 5px; /* Space between the form and the topbar */
+}
+
+.reg_form input {
+  margin: 5px; /* Space between the input and the topbar */
+  padding: 5px; /* Spacing inside the input */
+  border-radius: 5px; /* Rounded corners */
+  border: 1px solid #ced4da; /* Light border */
+
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.reg_form label{
+  display: inline-block;
+  width: 130px;
+}

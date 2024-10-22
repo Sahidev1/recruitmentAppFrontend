@@ -9,6 +9,7 @@ import { Paths } from "../enums/navigations";
 import { registerApplicant } from "../apis/authAPI";
 import RegResponse from "../models/RegResponse";
 import Loading from "../components/loading";
+import { rootProps } from "../interfaces/Props";
 
 
 
@@ -16,7 +17,7 @@ export default function Registration() {
     const authStatus: loginStates = useSelector((state: RootState) => state.auth.loginStatus);
     const [loading, setLoading] = useState<boolean>(false);
     const [regAttempted, setRegAttempted] = useState<boolean>(false);
-    const [attemptCount, setAttempCount] = useState<number>(0);
+    const [attemptCount, setAttempCount] = useState<number>(0); // this to force registration subcomponent to actually render on new attempts, not used  in subcomponent
     const attemptSucceded = useRef<boolean|undefined>(undefined);
     const attemptFailMessage = useRef<string|undefined>(undefined);
     const failureCauses = useRef<string[]|undefined>(undefined);

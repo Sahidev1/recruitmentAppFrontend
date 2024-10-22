@@ -1,4 +1,4 @@
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { Navigate, Outlet, OutletProps, Path, useLocation } from "react-router-dom";
 import StatusComponent from "../components/statusComponent";
 import { statusComponentProps } from "../components/statusComponent";
 import { useSelector } from "react-redux";
@@ -6,11 +6,19 @@ import { AppDispatch, RootState } from "../redux/store";
 import { Authstate, setAuthStatus, setAuthUsername, setUserRole } from "../redux/Authslice";
 import { fetchStatus, loginStates, userRole } from "../enums/enums";
 import NavigationComponent, { navigationComponentProps } from "../components/navigationComponent";
-import { useRef, useState } from "react";
+import { createContext, useContext, useRef, useState } from "react";
 import { Paths } from "../enums/navigations";
 import { logOut } from "../apis/authAPI";
 import { useDispatch } from "react-redux";
 import ActionComponent, { actionComponentProps } from "../components/actionComponent";
+
+type NavContextType = {nav:string, navTo:(path:Paths)=>void};
+const NavContext = createContext<NavContextType>({
+    nav: "",
+    navTo: (path:Paths)=>{return}
+});
+export {NavContext};
+export type {NavContextType};
 
 
 export default function TopBar() {
@@ -26,6 +34,7 @@ export default function TopBar() {
 
     const dispatch = useDispatch<AppDispatch>();
 
+
     const props: statusComponentProps = {
         loginStatus: status.loginStatus,
         username: status.username,
@@ -33,6 +42,7 @@ export default function TopBar() {
     }
     const location = useLocation();
     const [nav, setNav] = useState<string>(location.pathname);
+
     const prev = useRef<string>(location.pathname);
 
     const posPaths: string[] = [Paths.ROOT, Paths.APPLICANT_PORTAL, Paths.RECRUITER_PORTAL];
@@ -88,8 +98,11 @@ export default function TopBar() {
         actionProps.buttons = [...actionProps.buttons, { description: 'logout', callback: logOutCB }]
     }
     console.log(`prev: ${prev.current}, nav: ${nav}`)
+    
+
+
     return (
-        <>
+        <NavContext.Provider value={{ nav: nav, navTo: (path: Paths) => { prev.current = nav; setNav(path); } }}>
             {nav !== prev.current ? <Navigate to={nav} replace={false} /> : null}
             <>
                 <div className="topbar">
@@ -97,12 +110,10 @@ export default function TopBar() {
                     <span className="nav"><NavigationComponent {...navProps} /></span>
                     <span className="action"><ActionComponent {...actionProps} /></span>
                 </div>
-                <div>
+                <div id="children_container">
                     <Outlet />
                 </div>
             </>
-
-
-        </>
+        </NavContext.Provider>
     );
 }                       

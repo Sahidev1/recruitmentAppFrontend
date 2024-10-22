@@ -38,6 +38,12 @@ interface LoginProps {
     //loginStateSetter(newState: Number):void
 }
 
+interface oProps {
+    callbacks: {identifier?:string, callback:(...args:any[])=>void}[]
+}
+
+type rootProps = oProps | undefined;
 
 
-export type {Props, LoginProps, priMap, StateTuple};
+
+export type {Props, LoginProps, priMap, StateTuple, rootProps, oProps};

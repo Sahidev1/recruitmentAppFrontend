@@ -1,14 +1,17 @@
-import { useState } from "react";
+import {  useContext, useState } from "react";
 import { authenticateApplicant } from "../apis/authAPI";
 import { credentialTypes, loginStates, userRole } from "../enums/enums";
-import { LoginProps } from "../interfaces/Props";
+import { LoginProps, oProps } from "../interfaces/Props";
 import UserLogin from "./userLogin";
 import { Navigate } from "react-router-dom";
 import { Paths } from "../enums/navigations";
+import { NavContext, NavContextType } from "./topBar";
 
 
 export default function ApplicantLogin(){
-    const [navToReg, setNavToReg] = useState<boolean>(false);
+    const navContext:NavContextType = useContext<NavContextType>(NavContext);
+    //const [navToReg, setNavToReg] = useState<boolean>(false);
+    console.log(navContext)
     
     const props:LoginProps = {
         loginCallback:authenticateApplicant,
@@ -17,9 +20,9 @@ export default function ApplicantLogin(){
         credType: credentialTypes.RECRUITER,
         welcomeMessage: "welcome to applicant portal!",
         additionalButtons:[{descriptor:'register', onClick(e) {
-            setNavToReg(true);
+            navContext.navTo(Paths.REGISTRATION)
         },}]
     }
 
-    return (navToReg?<Navigate to={Paths.REGISTRATION}/>:<UserLogin {...props}/>);
+    return (/*navToReg?<Navigate to={Paths.REGISTRATION}/>:*/<UserLogin {...props}/>);
 }

@@ -1,6 +1,6 @@
 import { authenticateApplicant } from "../apis/authAPI";
 import { credentialTypes, loginStates, userRole } from "../enums/enums";
-import { LoginProps } from "../interfaces/Props";
+import { LoginProps, rootProps } from "../interfaces/Props";
 import UserLogin from "./userLogin";
 
 
