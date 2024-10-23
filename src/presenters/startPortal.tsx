@@ -6,6 +6,8 @@ import { loginStates } from "../enums/enums";
 import {loggedOutPortalProps} from "../components/loggedOutPortal";
 import LoggedOutPortal from "../components/loggedOutPortal";
 import { Props, priMap } from "../interfaces/Props";
+import applicantPortal from "./applicantPortal";
+import ApplicantPortal from "./applicantPortal";
 
 
 export default function StartPortal (){
@@ -26,8 +28,7 @@ export default function StartPortal (){
         }
     }
     
-    
 
     return ((portal === "applicant" && <Navigate to="/applicant_portal" replace={false}/>) || (portal === "recruiter" && <Navigate to="recruiter_portal" replace={false} />)
-    ||<LoggedOutPortal />)
+    ||(loginStatus === loginStates.APPLICANT_LOGGED_IN && <ApplicantPortal/>)||<LoggedOutPortal/>)
 }
