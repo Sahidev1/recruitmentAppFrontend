@@ -12,15 +12,17 @@ interface APImap{
 interface apiMap extends APImap {
     LOGIN:string, 
     CHECK_AUTH:string,
-    LOGOUT:string
-    REGISTER:string
+    LOGOUT:string,
+    REGISTER:string,
+    CREATEAPP:string,
 }
 
 const applicantAPImap:Immutable<apiMap> = {
     LOGIN:apiVars.LOGIN,
     CHECK_AUTH:apiVars.CHECK_AUTH,
     LOGOUT:apiVars.LOGOUT,
-    REGISTER:apiVars.REGISTER
+    REGISTER:apiVars.REGISTER,
+    CREATEAPP:apiVars.CREATEAPP
 }
 
 export {applicantAPImap}

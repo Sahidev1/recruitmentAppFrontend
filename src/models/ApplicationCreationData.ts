@@ -52,7 +52,7 @@ interface competence_profile {
     competency: {name:string}
 }
 
-export default class ApplicationCreationForm {
+export default class ApplicationCreationData {
     name: string;
     surname: string;
     pnr: string;

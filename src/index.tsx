@@ -6,6 +6,9 @@ import store from './redux/store';
 import { checkAuthenticationState } from './apis/authAPI';
 import App from './app';
 import { applicantAPImap } from './apis/apiMaps';
+import ApplicantLogin from './presenters/applicantLogin';
+import { createApplication } from './applicantAPI';
+import ApplicationCreationData from './models/ApplicationCreationData';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -23,4 +26,7 @@ root.render(
 );
 
 //heckAuthenticationState().then(e => console.log(e)).catch(err => console.log(err))
-console.log(applicantAPImap.REGISTER)
+//console.log(applicantAPImap.REGISTER)
+console.log(applicantAPImap.CREATEAPP);
+
+//REMOVE STUFF BELOW!!
