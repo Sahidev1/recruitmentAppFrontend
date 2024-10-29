@@ -1,19 +1,18 @@
-import { applicantAPImap } from "./apis/apiMaps";
-import AppCreationResponse from "./models/AppCreationResponse";
-import ApplicationCreationData from "./models/ApplicationCreationData";
-
+import { applicantAPImap } from "./apiMaps";
+import AppCreationResponse from "../models/AppCreationResponse";
+import ApplicationCreationData from "../models/ApplicationCreationData";
 
 const defaultHeaders:HeadersInit = {"Content-Type":"application/json"};
 
 async function createApplication(application:ApplicationCreationData):Promise<AppCreationResponse>{
     try {
-        const rawPayload:string = application.getJSONpayload();
+        const rawPayload:{application:any} = application.getJSONpayload();
         const reqOptions:RequestInit = {
             method: "POST",
             headers: defaultHeaders,
-            body: rawPayload,
+            body: JSON.stringify(rawPayload.application),
             redirect: "follow",
-            //credentials: "include"
+            credentials: "include"
         };
 
         const resp:Response = await fetch(applicantAPImap.CREATEAPP, reqOptions);

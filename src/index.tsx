@@ -7,7 +7,7 @@ import { checkAuthenticationState } from './apis/authAPI';
 import App from './app';
 import { applicantAPImap } from './apis/apiMaps';
 import ApplicantLogin from './presenters/applicantLogin';
-import { createApplication } from './applicantAPI';
+import { createApplication } from './apis/applicantAPI'
 import ApplicationCreationData from './models/ApplicationCreationData';
 
 const root = ReactDOM.createRoot(
