@@ -47,8 +47,8 @@ export default function TopBar() {
 
     const posPaths: string[] = [Paths.ROOT, Paths.APPLICANT_PORTAL, Paths.RECRUITER_PORTAL];
     const descriptorMap: { [key: string]: string } = {
-        [Paths.ROOT]: "Main portal", [Paths.APPLICANT_PORTAL]: "Application Portal",
-        [Paths.RECRUITER_PORTAL]: "Recruitment Portal"
+        [Paths.ROOT]: "Main portal", [Paths.APPLICANT_PORTAL]: "Applicant Portal",
+        [Paths.RECRUITER_PORTAL]: "Recruiter Portal"
     }
 
     let availableNavs: string[];
