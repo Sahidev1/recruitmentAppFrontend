@@ -1,6 +1,7 @@
 import { applicantAPImap } from "./apiMaps";
 import AppCreationResponse from "../models/AppCreationResponse";
 import ApplicationCreationData from "../models/ApplicationCreationData";
+import OwnApplicationResponse from "../models/OwnApplicationResponse";
 
 const defaultHeaders:HeadersInit = {"Content-Type":"application/json"};
 
@@ -26,4 +27,20 @@ async function createApplication(application:ApplicationCreationData):Promise<Ap
     }
 }
 
-export {createApplication}
+async function getOwnApplication():Promise<OwnApplicationResponse>{
+    try {
+        const reqOptions:RequestInit = {
+            method: "GET",
+            headers: defaultHeaders, 
+            redirect: "follow",
+            credentials: "include"
+        }
+        const resp:Response = await fetch(applicantAPImap.OWN, reqOptions);
+        const json:any = await resp.json();
+        return json as OwnApplicationResponse;
+    } catch (error) {
+        throw error;        
+    }
+}
+
+export {createApplication, getOwnApplication}

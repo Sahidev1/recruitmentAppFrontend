@@ -1,27 +1,20 @@
 
-interface availability {
+export interface availability {
     from_date:string,
     to_date:string
 }
 
-interface competence_profile {
+export interface competence_profile {
     years_of_experience: string, 
     competency: {name:string}
 }
 
 export default class ApplicationCreationData {
-    name: string;
-    surname: string;
-    pnr: string;
-    email: string;
+
     availabilities: availability[];
     competencies: competence_profile[];
 
-    constructor(name:string, surname:string, pnr:string, email:string){
-        this.name = name;
-        this.surname = surname;
-        this.pnr = pnr;
-        this.email = email;
+    constructor(){
         this.availabilities = [];
         this.competencies = [];
     }
@@ -37,10 +30,6 @@ export default class ApplicationCreationData {
     public getJSONpayload(): { application: any } {
         return {
           application: {
-            name: this.name,
-            surname: this.surname,
-            pnr: this.pnr,
-            email: this.email,
             availabilities: this.availabilities,
             competence_profiles: this.competencies
           }

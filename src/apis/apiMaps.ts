@@ -15,6 +15,7 @@ interface apiMap extends APImap {
     LOGOUT:string,
     REGISTER:string,
     CREATEAPP:string,
+    OWN:string
 }
 
 const applicantAPImap:Immutable<apiMap> = {
@@ -22,7 +23,8 @@ const applicantAPImap:Immutable<apiMap> = {
     CHECK_AUTH:apiVars.CHECK_AUTH,
     LOGOUT:apiVars.LOGOUT,
     REGISTER:apiVars.REGISTER,
-    CREATEAPP:apiVars.CREATEAPP
+    CREATEAPP:apiVars.CREATEAPP,
+    OWN:apiVars.OWN
 }
 
 export {applicantAPImap}

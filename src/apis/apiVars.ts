@@ -5,7 +5,8 @@ interface VarMap{
     CHECK_AUTH:string,
     LOGOUT:string,
     REGISTER:string,
-    CREATEAPP:string
+    CREATEAPP:string,
+    OWN:string
 }
 
 
@@ -14,5 +15,6 @@ export default <VarMap>{
     CHECK_AUTH: concateReadEnv(['API_HOST', 'API_PATH_CHECK_AUTH']),
     LOGOUT: concateReadEnv(['API_HOST', 'API_PATH_LOGOUT']),
     REGISTER: concateReadEnv(['API_HOST', 'API_PATH_REGISTER']),
-    CREATEAPP: concateReadEnv(['API_HOST', 'API_PATH_CREATEAPP'])
+    CREATEAPP: concateReadEnv(['API_HOST', 'API_PATH_CREATEAPP']),
+    OWN: concateReadEnv(['API_HOST', 'API_PATH_OWN'])
 };
