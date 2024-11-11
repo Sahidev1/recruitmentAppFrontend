@@ -6,7 +6,8 @@ interface VarMap{
     LOGOUT:string,
     REGISTER:string,
     CREATEAPP:string,
-    OWN:string
+    OWN:string,
+    COMPETENCIES:string
 }
 
 
@@ -16,5 +17,6 @@ export default <VarMap>{
     LOGOUT: concateReadEnv(['API_HOST', 'API_PATH_LOGOUT']),
     REGISTER: concateReadEnv(['API_HOST', 'API_PATH_REGISTER']),
     CREATEAPP: concateReadEnv(['API_HOST', 'API_PATH_CREATEAPP']),
-    OWN: concateReadEnv(['API_HOST', 'API_PATH_OWN'])
+    OWN: concateReadEnv(['API_HOST', 'API_PATH_OWN']),
+    COMPETENCIES: concateReadEnv(['API_HOST', 'API_PATH_COMPETENCIES'])
 };
