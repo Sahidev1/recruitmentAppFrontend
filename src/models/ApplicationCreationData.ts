@@ -1,10 +1,12 @@
 
 export interface availability {
+    availabilities_id?: number,
     from_date:string,
     to_date:string
 }
 
 export interface competence_profile {
+    competence_profile_id?: number,
     years_of_experience: string, 
     competency: {name:string}
 }

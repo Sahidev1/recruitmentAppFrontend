@@ -8,19 +8,19 @@ import useDumbRerenderer from "../costumHooks/rerender";
 export default function ApplicantPortal() {
     type OwnApp = OwnApplicationResponse | null;
 
-    
+
     const [application, setApplication] = useState<OwnApp>(null);
+    
 
     //const hardRender = useDumbRerenderer();
-    const compList = useRef<{id:number, name:string}[]|null>(null);
+    const compList = useRef<{ id: number, name: string }[] | null>(null);
+
 
 
     useEffect(() => {
-
         async function loadData() {
             try {
                 const res = await getOwnApplication();
-                setApplication(res);
 
                 //sleep 10ms
                 //await new Promise((resolve) => setTimeout(resolve, 100));
@@ -28,6 +28,8 @@ export default function ApplicantPortal() {
                 const res0 = await getCompetencyList();
 
                 compList.current = res0;
+                setApplication(res);
+
             } catch (error) {
                 console.log(`Error retrieving own application data: ${error}`);
             }
@@ -42,7 +44,7 @@ export default function ApplicantPortal() {
 
     const props: applicationEditorProps = {
         displayCurrApp: application !== null,
-        callback: () => { console.log("callback") },
+        callback: () => { console.log(`callback`) },
         currApp: application,
         competencyList: compList.current
     }
@@ -51,7 +53,7 @@ export default function ApplicantPortal() {
 
     return (
         <div id="applicant-portal" className="applicant-portal">
-          <ApplicationEditor {...props} />
+            <ApplicationEditor {...props} />
         </div>
     )
 }

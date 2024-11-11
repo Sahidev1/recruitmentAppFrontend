@@ -48,7 +48,7 @@ td {
   min-height: 3em; /* Minimum height of 4em */
   display: flex;
   background-color: #a3ccf5; /* Light background color */
-  box-shadow: 0 4px 10px rgba(255, 0, 0, 0.5); /* Subtle shadow for depth */
+  box-shadow: 0 4px 10px rgba(19, 18, 18, 0.5); /* Subtle shadow for depth */
 }
 
 .topbar span {
