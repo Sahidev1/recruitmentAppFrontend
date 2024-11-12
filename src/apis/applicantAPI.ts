@@ -28,13 +28,17 @@ async function createApplication(application: ApplicationCreationData): Promise<
     }
 }
 
-async function getOwnApplication(): Promise<OwnApplicationResponse> {
+async function getOwnApplication(timeout?: number): Promise<OwnApplicationResponse> {
     try {
         const reqOptions: RequestInit = {
             method: "GET",
             headers: defaultHeaders,
             redirect: "follow",
             credentials: "include"
+        }
+
+        if (timeout) {
+            reqOptions.signal = AbortSignal.timeout(timeout);
         }
         const resp: Response = await fetch(applicantAPImap.OWN, reqOptions);
         const json: any = await resp.json();

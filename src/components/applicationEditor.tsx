@@ -21,32 +21,66 @@ export default function ApplicationEditor(props: applicationEditorProps) {
     const [showAvail, setShowAvail] = useState<boolean>(false);
 
     console.log("pre-render")
-    const forceRender = useDumbRerenderer();
+    const forceRender = useDumbRerenderer(); // This only render this component
     console.log("post-render")
     const pickedComp = useRef<string | null>(null);
     const pickedYears = useRef<HTMLInputElement>(null);
     const fromDate = useRef<HTMLInputElement>(null);
     const toDate = useRef<HTMLInputElement>(null);
     const tempv = useRef<tempPayload>({
-        competency_profiles: [],
+        competency_profiles:  [],
         availabilities: []
     });
 
+    props.currApp?.competence_profiles.forEach(e => {console.log(e)});
+
     const addComp = () => {
-        let comp = pickedComp.current;
-        let yoe = pickedYears.current?.value;
-        if (comp && yoe) {
-            tempv.current.competency_profiles.push({
-                competency: { name: comp ? comp : "" },
-                years_of_experience: yoe ? yoe : "0"
-            })
-            forceRender();
+        const comp = pickedComp.current;
+        const yoe = pickedYears.current?.value;
+
+        if (!comp || !yoe) return;
+
+        // Check existing competencies in currApp
+        if (props.currApp?.competence_profiles) {
+            const existingIndex = props.currApp.competence_profiles.findIndex(
+                (profile) => profile && profile.competency && profile.competency.name === comp
+            );
+            
+            if (existingIndex !== -1) {
+                // Update existing competency
+                if (props.currApp.competence_profiles[existingIndex]) {
+                    props.currApp.competence_profiles[existingIndex].years_of_experience = yoe;
+                    forceRender();
+                    return;
+                }
+            }
         }
+
+        // Check temporary competencies
+        const tempIndex = tempv.current.competency_profiles.findIndex(
+            (profile) => profile && profile.competency && profile.competency.name === comp
+        );
+
+        if (tempIndex !== -1) {
+            tempv.current.competency_profiles[tempIndex].years_of_experience = yoe;
+            forceRender();
+            return;
+        }
+
+        // Add new competency
+        tempv.current.competency_profiles.push({
+            competency: { name: comp },
+            years_of_experience: yoe
+        });
+        forceRender();
     }
+
     const addAvail = () => {
         let from = fromDate.current?.value;
         let to = toDate.current?.value;
+        const dbAvails = props.currApp?.availabilities?props.currApp?.availabilities:[];
         if (from && to) {
+            if([...tempv.current.availabilities, ...dbAvails].find(e => e.from_date === from && e.to_date === to) !== undefined) return;
             tempv.current.availabilities.push({
                 from_date: from,
                 to_date: to
@@ -73,16 +107,22 @@ export default function ApplicationEditor(props: applicationEditorProps) {
                     </tr>
                 </thead>
                 <tbody>
-                    {props.currApp?.availabilities.map((e) => {
+                    {props.currApp?.availabilities.map((e,i) => {
                         return (<tr>
                             <td> {e.from_date}</td>
                             <td> {e.to_date}</td>
+                            <button className="delete-button" onClick={()=>{delete props.currApp?.availabilities[i]
+                            forceRender()
+                            } }>X</button>
                         </tr>);
                     })}
-                    {tempv.current.availabilities.map((e) => {
+                    {tempv.current.availabilities.map((e,i) => {
                         return (<tr>
                             <td> {e.from_date}</td>
                             <td> {e.to_date}</td>
+                            <button className="delete-button" onClick={()=>{delete tempv.current.availabilities[i];
+                            forceRender();
+                            } }>X</button>
                         </tr>);
                     })}
                 </tbody>
@@ -97,16 +137,22 @@ export default function ApplicationEditor(props: applicationEditorProps) {
                     </tr>
                 </thead>
                 <tbody>
-                    {props.currApp?.competence_profiles.map((e) => {
+                    {props.currApp?.competence_profiles.map((e,i) => {
                         return (<tr>
                             <td> {e.years_of_experience}</td>
                             <td> {e.competency.name}</td>
+                            <button className="delete-button" onClick={()=>{delete props.currApp?.competence_profiles[i];
+                            forceRender();
+                            }}>X</button>
                         </tr>);
                     })}
-                    {tempv.current.competency_profiles.map((e) => {
+                    {tempv.current.competency_profiles.map((e,i) => {
                         return (<tr>
                             <td> {e.years_of_experience}</td>
                             <td> {e.competency.name}</td>
+                            <button className="delete-button" onClick={()=>{delete tempv.current.competency_profiles[i];
+                                forceRender();
+                            }}>X</button>
                         </tr>);
                     })}
                 </tbody>

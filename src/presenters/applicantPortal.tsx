@@ -8,9 +8,10 @@ import useDumbRerenderer from "../costumHooks/rerender";
 export default function ApplicantPortal() {
     type OwnApp = OwnApplicationResponse | null;
 
+    const forceRender = useDumbRerenderer();
 
     const [application, setApplication] = useState<OwnApp>(null);
-    
+
 
     //const hardRender = useDumbRerenderer();
     const compList = useRef<{ id: number, name: string }[] | null>(null);
@@ -20,17 +21,18 @@ export default function ApplicantPortal() {
     useEffect(() => {
         async function loadData() {
             try {
+                const res0 = await getCompetencyList();
+
+                compList.current = res0;
                 const res = await getOwnApplication();
 
                 //sleep 10ms
                 //await new Promise((resolve) => setTimeout(resolve, 100));
 
-                const res0 = await getCompetencyList();
-
-                compList.current = res0;
                 setApplication(res);
 
             } catch (error) {
+                forceRender();
                 console.log(`Error retrieving own application data: ${error}`);
             }
         }
