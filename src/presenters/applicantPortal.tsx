@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { createApplication, getCompetencyList, getOwnApplication } from "../apis/applicantAPI";
 import ApplicationEditor, { applicationEditorProps } from "../components/applicationEditor";
-import ApplicationCreationData from "../models/ApplicationCreationData";
+import ApplicationCreationData, { availability, competence_profile } from "../models/ApplicationCreationData";
 import OwnApplicationResponse from "../models/OwnApplicationResponse";
 import useDumbRerenderer from "../costumHooks/rerender";
+import AppCreationResponse from "../models/AppCreationResponse";
+import TraceError from "../utils/TraceError";
 
 export default function ApplicantPortal() {
     type OwnApp = OwnApplicationResponse | null;
@@ -43,12 +45,22 @@ export default function ApplicantPortal() {
     //console.log(JSON.stringify(application?.availabilities))
     console.log(compList.current)
 
+    const createApp = async (avails: availability[], comps: competence_profile[]) => { 
+        const apc = new ApplicationCreationData(avails, comps); 
+        try {
+            const res:AppCreationResponse = await createApplication(apc);
+            console.log(res.creationSuccess?"success":"fail");
+        } catch (error) {
+            console.log((error as TraceError).Trace());
+        }
+    };
 
     const props: applicationEditorProps = {
         displayCurrApp: application !== null,
         callback: () => { console.log(`callback`) },
         currApp: application,
-        competencyList: compList.current
+        competencyList: compList.current,
+        createAppCB: createApp
     }
 
 

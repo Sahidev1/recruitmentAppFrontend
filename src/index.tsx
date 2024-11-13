@@ -18,11 +18,11 @@ const root = ReactDOM.createRoot(
 
 // Note that StrictMode causes double renders in Dev environment
 root.render(
- // <React.StrictMode>
+  <React.StrictMode>
     <Provider store={store}>
       <App/>
     </Provider>
-  //</React.StrictMode>
+  </React.StrictMode>
 );
 
 //heckAuthenticationState().then(e => console.log(e)).catch(err => console.log(err))

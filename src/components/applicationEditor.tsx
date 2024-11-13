@@ -8,7 +8,8 @@ export interface applicationEditorProps {
     displayCurrApp: boolean
     callback: () => void
     currApp: OwnApplicationResponse | null,
-    competencyList: { id: number, name: string }[] | null
+    competencyList: { id: number, name: string }[] | null,
+    createAppCB: (availabilities: availability[], competenceProfiles: competence_profile[]) => void
 }
 
 export interface tempPayload {
@@ -111,7 +112,8 @@ export default function ApplicationEditor(props: applicationEditorProps) {
                         return (<tr>
                             <td> {e.from_date}</td>
                             <td> {e.to_date}</td>
-                            <button className="delete-button" onClick={()=>{delete props.currApp?.availabilities[i]
+                            <button className="delete-button" onClick={()=>{
+                            props.currApp?.availabilities.splice(i,1)
                             forceRender()
                             } }>X</button>
                         </tr>);
@@ -120,7 +122,7 @@ export default function ApplicationEditor(props: applicationEditorProps) {
                         return (<tr>
                             <td> {e.from_date}</td>
                             <td> {e.to_date}</td>
-                            <button className="delete-button" onClick={()=>{delete tempv.current.availabilities[i];
+                            <button className="delete-button" onClick={()=>{tempv.current.availabilities.splice(i,1);
                             forceRender();
                             } }>X</button>
                         </tr>);
@@ -141,7 +143,7 @@ export default function ApplicationEditor(props: applicationEditorProps) {
                         return (<tr>
                             <td> {e.years_of_experience}</td>
                             <td> {e.competency.name}</td>
-                            <button className="delete-button" onClick={()=>{delete props.currApp?.competence_profiles[i];
+                            <button className="delete-button" onClick={()=>{props.currApp?.competence_profiles.splice(i,1);
                             forceRender();
                             }}>X</button>
                         </tr>);
@@ -150,7 +152,7 @@ export default function ApplicationEditor(props: applicationEditorProps) {
                         return (<tr>
                             <td> {e.years_of_experience}</td>
                             <td> {e.competency.name}</td>
-                            <button className="delete-button" onClick={()=>{delete tempv.current.competency_profiles[i];
+                            <button className="delete-button" onClick={()=>{tempv.current.competency_profiles.splice(i,1);
                                 forceRender();
                             }}>X</button>
                         </tr>);
@@ -184,6 +186,13 @@ export default function ApplicationEditor(props: applicationEditorProps) {
                 <input type="date" ref={toDate} />
                 <button onClick={() => addAvail()}>add</button>
             </div>
+        </div>
+        <div id="submit-app">
+            <button onClick={()=>{
+                const DBavails = props.currApp?.availabilities?props.currApp?.availabilities:[];
+                const DBcomps = props.currApp?.competence_profiles?props.currApp?.competence_profiles:[];
+                props.createAppCB([...DBavails, ...tempv.current.availabilities], [...DBcomps, ...tempv.current.competency_profiles]);
+            }}> Submit </button>
         </div>
     </div>
 }

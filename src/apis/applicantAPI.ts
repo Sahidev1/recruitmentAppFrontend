@@ -2,7 +2,7 @@ import { applicantAPImap } from "./apiMaps";
 import AppCreationResponse from "../models/AppCreationResponse";
 import ApplicationCreationData from "../models/ApplicationCreationData";
 import OwnApplicationResponse from "../models/OwnApplicationResponse";
-import { json } from "stream/consumers";
+import TraceError from "../utils/TraceError";
 
 const defaultHeaders: HeadersInit = { "Content-Type": "application/json" };
 
@@ -12,19 +12,19 @@ async function createApplication(application: ApplicationCreationData): Promise<
         const reqOptions: RequestInit = {
             method: "POST",
             headers: defaultHeaders,
-            body: JSON.stringify(rawPayload.application),
+            body: JSON.stringify(rawPayload),
             redirect: "follow",
             credentials: "include"
         };
 
         const resp: Response = await fetch(applicantAPImap.CREATEAPP, reqOptions);
-        const json: any = await resp.json();
+        const json: any = await resp.text();
 
         console.log(`respcode: ${resp.status}, body:\n${json}`);
 
         return new AppCreationResponse(json, resp.status);
     } catch (error) {
-        throw error;
+        throw new TraceError('create app error', error);
     }
 }
 
