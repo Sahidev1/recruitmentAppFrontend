@@ -32,9 +32,11 @@ export default function ApplicationEditor(props: applicationEditorProps) {
         competency_profiles:  [],
         availabilities: []
     });
+    
 
     props.currApp?.competence_profiles.forEach(e => {console.log(e)});
 
+    
     const addComp = () => {
         const comp = pickedComp.current;
         const yoe = pickedYears.current?.value;
@@ -62,17 +64,22 @@ export default function ApplicationEditor(props: applicationEditorProps) {
             (profile) => profile && profile.competency && profile.competency.name === comp
         );
 
+        console.log("TEMPINDEX: ", tempIndex);
+
         if (tempIndex !== -1) {
             tempv.current.competency_profiles[tempIndex].years_of_experience = yoe;
             forceRender();
             return;
         }
 
+        console.log("ADDING COMPETENCY: ", comp, yoe);
+
         // Add new competency
         tempv.current.competency_profiles.push({
             competency: { name: comp },
             years_of_experience: yoe
         });
+        console.log("TEMPV: ", tempv.current.competency_profiles);
         forceRender();
     }
 
