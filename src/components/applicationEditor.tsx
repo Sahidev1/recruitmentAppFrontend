@@ -20,6 +20,9 @@ export interface tempPayload {
 export default function ApplicationEditor(props: applicationEditorProps) {
     const [showComp, setShowComp] = useState<boolean>(false);
     const [showAvail, setShowAvail] = useState<boolean>(false);
+    const [displayCurrApp, setDisplayCurrApp] = useState<boolean>(false);
+
+    console.log("displayCurrApp: ", displayCurrApp);
 
     console.log("pre-render")
     const forceRender = useDumbRerenderer(); // This only render this component
@@ -80,6 +83,7 @@ export default function ApplicationEditor(props: applicationEditorProps) {
             years_of_experience: yoe
         });
         console.log("TEMPV: ", tempv.current.competency_profiles);
+        if(!displayCurrApp) setDisplayCurrApp(true);
         forceRender();
     }
 
@@ -99,7 +103,8 @@ export default function ApplicationEditor(props: applicationEditorProps) {
 
     return <div id="application-editor" className="application-editor">
         {!props.displayCurrApp && <p> No application found</p>}
-        <div id="curr-app" hidden={!props.displayCurrApp}>
+        <div id="curr-app" hidden={!displayCurrApp && !props.displayCurrApp}>
+            
             <p> Current Application: </p>
             <p> name: {props.currApp?.name}</p>
             <p> surname: {props.currApp?.surname}</p>
@@ -180,7 +185,7 @@ export default function ApplicationEditor(props: applicationEditorProps) {
                 </select>
                 <label> years of experience: </label>
                 <input type="number" ref={pickedYears} />
-                <button onClick={() => { addComp() }}>add</button>
+                <button onClick={() => { addComp(); }}>add</button>
 
             </div>
         </div>
